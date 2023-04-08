@@ -94,15 +94,13 @@
     description = "ryans";
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
-	firefox
-	spotify
-	vscode
-	tdesktop #Telegram
-	discord
-	whatsapp-for-linux
-	git
-	notion
-    #  thunderbird
+      firefox
+      spotify
+      vscode
+      tdesktop #Telegram
+      discord
+      whatsapp-for-linux
+      git
     ];
   };
 
