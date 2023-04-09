@@ -109,6 +109,7 @@
       nodejs
       python
       jekyll
+      bundler
     ];
   };
 
