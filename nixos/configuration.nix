@@ -99,7 +99,6 @@
       spotify
 
       # Communication
-      whatsapp-for-linux
       discord
       tdesktop #Telegram
 
