@@ -97,6 +97,7 @@
       # Applications
       firefox
       spotify
+      libreoffice-qt
 
       # Utilities
       libsForQt5.okular # Okular (PDF Reader)
