@@ -98,6 +98,9 @@
       firefox
       spotify
 
+      # Utilities
+      libsForQt5.okular # Okular (PDF Reader)
+
       # Communication
       discord
       tdesktop #Telegram
