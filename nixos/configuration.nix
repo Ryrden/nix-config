@@ -98,6 +98,7 @@
       firefox
       spotify
       libreoffice-qt
+      steam
 
       # Utilities
       libsForQt5.okular # Okular (PDF Reader)
