@@ -91,6 +91,13 @@
   # Enable a way to reference flake attributes in nixpkgs
   nix.registry = lib.mapAttrs (_: value: { flake=value; }) inputs;
 
+  # Enable the OpenGL drivers 
+  hardware.opengl = {
+    enable = true;
+    driSupport = true;
+    driSupport32Bit = true;
+  };
+
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.ryrden = {
