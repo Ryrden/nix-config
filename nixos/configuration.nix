@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, lib, ... }:
 
 {
   imports =
@@ -87,6 +87,10 @@
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
+  
+  # Enable a way to reference flake attributes in nixpkgs
+  nix.registry = lib.mapAttrs (_: value: { flake=value; }) inputs;
+
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.ryrden = {
