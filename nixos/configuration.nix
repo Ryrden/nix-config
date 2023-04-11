@@ -98,6 +98,8 @@
     driSupport32Bit = true;
   };
 
+  # Enable FLAKE support 
+  nix.settings.experimental-features = "nix-command flakes";
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.ryrden = {
