@@ -125,6 +125,7 @@
       tdesktop #Telegram
 
       # Development
+      jetbrains.datagrip
       vscode
       git
       gcc
