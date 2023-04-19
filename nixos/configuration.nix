@@ -113,6 +113,9 @@
       libreoffice-qt
       steam
 
+      #Design
+      krita
+
       # Utilities
       libsForQt5.okular # Okular (PDF Reader)
       gnome.pomodoro
