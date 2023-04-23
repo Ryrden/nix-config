@@ -9,15 +9,20 @@
     # hardware.url = "github:nixos/nixos-hardware";
   };
 
-  outputs = { nixpkgs, ... }@inputs: let
+  outputs = { self, nixpkgs, ... }@inputs: let
+    # Systems you want your packages available on
     systems = [ "x86_64-linux" "aarch64-linux" ];
+    # Makes it easier to make something for all systems
+    # e.g. packages.x86_64-linux and packages.aarch64-linux
     forAllSystems = nixpkgs.lib.genAttrs systems;
+    # This flake's outputs
+    inherit (self) outputs;
   in {
     # NixOS configuration entrypoint
     # Available through 'nixos-rebuild --flake .#your-hostname'
     nixosConfigurations = {
       nixos-ryans = nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit inputs; }; # Pass flake inputs to our config
+        specialArgs = { inherit inputs outputs; }; # Pass flake inputs to our config
         # > Our main nixos configuration file <
         modules = [ ./nixos/configuration.nix ];
       };
