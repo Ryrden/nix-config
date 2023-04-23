@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, inputs, lib, ... }:
+{ config, pkgs, inputs, outputs, lib, ... }:
 
 {
   imports =
@@ -112,6 +112,7 @@
       spotify
       libreoffice-qt
       steam
+      notion-web
 
       #Design
       krita
@@ -138,8 +139,14 @@
   
   virtualisation.docker.enable = true;
 
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
+  nixpkgs = {
+    # Allow unfree packages
+    config.allowUnfree = true;
+    overlays = [
+      outputs.overlays.additions
+      outputs.overlays.modifications
+    ];
+  };
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
