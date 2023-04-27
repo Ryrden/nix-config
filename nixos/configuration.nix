@@ -151,6 +151,7 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    nodePackages.typescript
     (pkgs.writeShellApplication {
       name = "discord";
       text = "${pkgs.chromium}/bin/chromium --app=https://discord.com/app";
