@@ -52,8 +52,8 @@
 
   # Active right-click on gnome
   services.xserver.desktopManager.gnome.extraGSettingsOverrides = ''
-   [org.gnome.desktop.peripherals.touchpad]
-   click-method='default'
+    [org.gnome.desktop.peripherals.touchpad]
+    click-method='default'
   '';
 
   # Configure keymap in X11
@@ -113,6 +113,10 @@
       libreoffice-qt
       steam
       notion-web
+      vlc # Video player
+      transmission-gtk # Torrent client
+      xournalpp
+      discord
 
       #Design
       krita
@@ -125,15 +129,24 @@
       tdesktop #Telegram
 
       # Development
-      jetbrains.datagrip
-      vscode
-      git
-      gcc
-      nodejs
-      python
-      jekyll
-      bundler
-      dbeaver
+        #Language
+        gcc
+        gnumake
+        gdb
+        bundler
+        
+        #Frameworks
+        nodejs
+        jekyll
+
+        #IDEs
+        vscode
+        jetbrains.datagrip
+        
+        #Tools
+        dbeaver
+        git
+        mongodb
     ];
   };
   
@@ -152,14 +165,27 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     nodePackages.typescript
+    nodePackages."@vue/cli"
+    python3
+    go
+    jdk11
+    # (pkgs.writeShellApplication {
+    #   name = "discord";
+    #   text = "${pkgs.chromium}/bin/chromium --app=https://discord.com/app";
+    # })
+    # (pkgs.makeDesktopItem {
+    #   name = "Discord";
+    #   exec = "discord";
+    #   desktopName = "Discord";
+    # })
     (pkgs.writeShellApplication {
-      name = "discord";
-      text = "${pkgs.chromium}/bin/chromium --app=https://discord.com/app";
+      name = "neetcode";
+      text = "${pkgs.chromium}/bin/chromium --app=https://neetcode.io/";
     })
     (pkgs.makeDesktopItem {
-      name = "Discord";
-      exec = "discord";
-      desktopName = "Discord";
+      name = "Neetcode";
+      exec = "neetcode";
+      desktopName = "Neetcode";
     })
   ];
 
