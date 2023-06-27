@@ -110,20 +110,17 @@
       # Applications
       firefox
       spotify
-      libreoffice-qt
       steam
       notion-web
       vlc # Video player
-      transmission-gtk # Torrent client
+      qBitTorrent
       xournalpp
       discord
-
-      #Design
-      krita
 
       # Utilities
       libsForQt5.okular # Okular (PDF Reader)
       gnome.pomodoro
+      obs-studio 
 
       # Communication
       tdesktop #Telegram
@@ -142,9 +139,11 @@
         #IDEs
         vscode
         jetbrains.datagrip
+        jetbrains.idea-community
+        #android-studio
         
         #Tools
-        dbeaver
+        #dbeaver
         git
         mongodb
     ];
@@ -168,19 +167,9 @@
     nodePackages."@vue/cli"
     python3
     go
-    jdk11
-    # (pkgs.writeShellApplication {
-    #   name = "discord";
-    #   text = "${pkgs.chromium}/bin/chromium --app=https://discord.com/app";
-    # })
-    # (pkgs.makeDesktopItem {
-    #   name = "Discord";
-    #   exec = "discord";
-    #   desktopName = "Discord";
-    # })
     (pkgs.writeShellApplication {
       name = "neetcode";
-      text = "${pkgs.chromium}/bin/chromium --app=https://neetcode.io/";
+      text = "${pkgs.chromium}/bin/chromium --app=https://neetcode.io/ --start-fullscreen --external-link";
     })
     (pkgs.makeDesktopItem {
       name = "Neetcode";
