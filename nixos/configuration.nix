@@ -5,10 +5,9 @@
 { config, pkgs, inputs, outputs, lib, ... }:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
+  imports = [ # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+  ];
 
   # Bootloader.
   boot.loader = {
@@ -20,15 +19,16 @@
     timeout = 10; # Wait 10 seconds before booting the default entry.
   };
 
-  networking.hostName = "nixos-ryans"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
-  # Enable networking
-  networking.networkmanager.enable = true;
+  # Networking
+  networking = {
+    hostName = "nixos-ryans";
+    networkmanager.enable = true;
+    nameservers = [ "8.8.8.8" "8.8.4.4" ]; # Google DNS
+    # wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+    # Configure network proxy if necessary
+    # proxy.default = "http://user:password@proxy:port/";
+    # proxy.noProxy = "127.0.0.1,localhost,internal.domain";
+  };
 
   # Set your time zone.
   time.timeZone = "America/Sao_Paulo";
@@ -92,9 +92,9 @@
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
-  
+
   # Enable a way to reference flake attributes in nixpkgs
-  nix.registry = lib.mapAttrs (_: value: { flake=value; }) inputs;
+  nix.registry = lib.mapAttrs (_: value: { flake = value; }) inputs;
 
   # Enable the OpenGL drivers 
   hardware.opengl = {
@@ -118,51 +118,49 @@
       steam
       notion-web
       vlc # Video player
-      qBitTorrent
+      transmission-gtk # Torrent client
       xournalpp
       discord
 
       # Utilities
       libsForQt5.okular # Okular (PDF Reader)
       gnome.pomodoro
-      obs-studio 
+      obs-studio
+      nixfmt
 
       # Communication
-      tdesktop #Telegram
+      tdesktop # Telegram
 
       # Development
-        #Language
-        gcc
-        gnumake
-        gdb
-        bundler
-        
-        #Frameworks
-        nodejs
-        jekyll
+      #Language
+      gcc
+      gnumake
+      gdb
+      bundler
 
-        #IDEs
-        vscode
-        jetbrains.datagrip
-        jetbrains.idea-community
-        #android-studio
-        
-        #Tools
-        #dbeaver
-        git
-        mongodb
+      #Frameworks
+      nodejs
+      jekyll
+
+      #IDEs
+      vscode
+      jetbrains.datagrip
+      jetbrains.idea-community
+      #android-studio
+
+      #Tools
+      #dbeaver
+      git
+      mongodb
     ];
   };
-  
+
   virtualisation.docker.enable = true;
 
   nixpkgs = {
     # Allow unfree packages
     config.allowUnfree = true;
-    overlays = [
-      outputs.overlays.additions
-      outputs.overlays.modifications
-    ];
+    overlays = [ outputs.overlays.additions outputs.overlays.modifications ];
   };
 
   # List packages installed in system profile. To search, run:
@@ -172,9 +170,12 @@
     nodePackages."@vue/cli"
     python3
     go
+    jdk
+    jre
     (pkgs.writeShellApplication {
       name = "neetcode";
-      text = "${pkgs.chromium}/bin/chromium --app=https://neetcode.io/ --start-fullscreen --external-link";
+      text =
+        "${pkgs.chromium}/bin/chromium --app=https://neetcode.io/ --start-fullscreen --external-link";
     })
     (pkgs.makeDesktopItem {
       name = "Neetcode";

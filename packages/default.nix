@@ -1,3 +1,1 @@
-{ pkgs, ... }: {
-  notion-web = pkgs.callPackage ./notion-web { };
-}
+{ pkgs, ... }: { notion-web = pkgs.callPackage ./notion-web { }; }
