@@ -30,45 +30,51 @@
     # proxy.noProxy = "127.0.0.1,localhost,internal.domain";
   };
 
-  # Set your time zone.
+  # Internationalisation
+  ## Clock
   time.timeZone = "America/Sao_Paulo";
 
-  # Select internationalisation properties.
+  ## Locale
   i18n.defaultLocale = "pt_BR.UTF-8";
-
   i18n.extraLocaleSettings = {
+    LC_TIME = "pt_BR.UTF-8";
+    LC_MONETARY = "pt_BR.UTF-8";
     LC_ADDRESS = "pt_BR.UTF-8";
     LC_IDENTIFICATION = "pt_BR.UTF-8";
     LC_MEASUREMENT = "pt_BR.UTF-8";
-    LC_MONETARY = "pt_BR.UTF-8";
     LC_NAME = "pt_BR.UTF-8";
     LC_NUMERIC = "pt_BR.UTF-8";
     LC_PAPER = "pt_BR.UTF-8";
     LC_TELEPHONE = "pt_BR.UTF-8";
-    LC_TIME = "pt_BR.UTF-8";
+  };
+  ## TTY Layout
+  console = {
+    font = "Lat2-Terminus16";
+    keyMap = "br-abnt2";
   };
 
-  # Enable the X11 windowing system.
-  services.xserver.enable = true;
-
-  # Enable the GNOME Desktop Environment.
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
-
-  # Active right-click on gnome
-  services.xserver.desktopManager.gnome.extraGSettingsOverrides = ''
-    [org.gnome.desktop.peripherals.touchpad]
-    click-method='default'
-  '';
-
-  # Configure keymap in X11
+  ## Display Managers/Desktop Environments/Window Managers
   services.xserver = {
+    ### Enable the X11 windowing system.
+    enable = true;
+    ### Enable the GNOME Desktop Environment.
+    displayManager.gdm = {
+      enable = true;
+      wayland = true;
+    };
+    desktopManager.gnome = {
+      enable = true;
+      # Active right-click on gnome
+      extraGSettingsOverrides = ''
+        [org.gnome.desktop.peripherals.touchpad]
+        click-method='default'
+      '';
+    };
+    videoDrivers = [ "amdgpu" ];
+    ### Configure keymap in X11
     layout = "br";
-    xkbVariant = "";
+    xkbVariant = "abnt2";
   };
-
-  # Configure console keymap
-  console.keyMap = "br-abnt2";
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
