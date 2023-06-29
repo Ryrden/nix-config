@@ -112,48 +112,6 @@
   users.users.ryrden = {
     isNormalUser = true;
     extraGroups = [ "networkmanager" "wheel" "video" "audio" "lp" "scanner" ];
-    packages = with pkgs; [
-      # Applications
-      firefox
-      spotify
-      steam
-      notion-web
-      vlc # Video player
-      transmission-gtk # Torrent client
-      xournalpp
-      discord
-
-      # Utilities
-      libsForQt5.okular # Okular (PDF Reader)
-      gnome.pomodoro
-      obs-studio
-      nixfmt
-
-      # Communication
-      tdesktop # Telegram
-
-      # Development
-      #Language
-      gcc
-      gnumake
-      gdb
-      bundler
-
-      #Frameworks
-      nodejs
-      jekyll
-
-      #IDEs
-      vscode
-      jetbrains.datagrip
-      jetbrains.idea-community
-      #android-studio
-
-      #Tools
-      #dbeaver
-      git
-      mongodb
-    ];
   };
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
