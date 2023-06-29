@@ -108,13 +108,6 @@
   ## Enable touchpad support
   services.xserver.libinput.enable = true;
 
-  # Flakes
-  ## Enable a way to reference flake attributes in nixpkgs
-  nix.registry = lib.mapAttrs (_: value: { flake = value; }) inputs;
-
-  ## Enable FLAKE support 
-  nix.settings.experimental-features = "nix-command flakes";
-
   # Packages 
   users.users.ryrden = {
     isNormalUser = true;
@@ -189,6 +182,29 @@
       desktopName = "Neetcode";
     })
   ];
+
+  # Updating and Upgrading
+  system.autoUpgrade = {
+    enable = true;
+    channel = "https://channels.nixos.org/nixos-unstable";
+  };
+
+  nix = {
+    # Garbage Collection
+    settings.auto-optimise-store = true;
+    gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 7d";
+    };
+    # Flakes
+    ## Enable a way to reference flake attributes in nixpkgs
+    registry = lib.mapAttrs (_: value: { flake = value; }) inputs;
+
+    ## Enable FLAKE support 
+    settings.experimental-features = "nix-command flakes";
+  };
+
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
