@@ -19,7 +19,8 @@
       # This flake's outputs
       inherit (self) outputs;
     in {
-      formatter = forAllSystems (sys: nixpkgs.legacyPackages.${sys}.nixpkgs-fmt);
+      formatter =
+        forAllSystems (sys: nixpkgs.legacyPackages.${sys}.nixpkgs-fmt);
       # NixOS configuration entrypoint
       # Available through 'nixos-rebuild --flake .#your-hostname'
       nixosConfigurations = {

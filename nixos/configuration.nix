@@ -2,9 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, inputs, outputs, lib, ... }:
-
-{
+{ config, pkgs, inputs, outputs, lib, ... }: {
   imports = [ # Include the results of the hardware scan.
     ./hardware-configuration.nix
   ];
@@ -53,35 +51,47 @@
     keyMap = "br-abnt2";
   };
 
-  ## Display Managers/Desktop Environments/Window Managers
+  # Display Managers/Desktop Environments/Window Managers
   services.xserver = {
-    ### Enable the X11 windowing system.
+    ## Enable the X11 windowing system.
     enable = true;
-    ### Enable the GNOME Desktop Environment.
+    ## Enable the GNOME Desktop Environment.
     displayManager.gdm = {
       enable = true;
       wayland = true;
     };
     desktopManager.gnome = {
       enable = true;
-      # Active right-click on gnome
+      ## Active right-click on gnome
       extraGSettingsOverrides = ''
         [org.gnome.desktop.peripherals.touchpad]
         click-method='default'
       '';
     };
     videoDrivers = [ "amdgpu" ];
-    ### Configure keymap in X11
+    ## Configure keymap in X11
     layout = "br";
     xkbVariant = "abnt2";
   };
 
-  # Enable CUPS to print documents.
+  # Hardware
+  ## Enable CUPS to print documents.
   services.printing.enable = true;
 
-  # Enable sound with pipewire.
-  sound.enable = true;
-  hardware.pulseaudio.enable = false;
+  ## Enable sound with pipewire.
+  sound = {
+    enable = true;
+    mediaKeys.enable = true;
+  };
+  hardware = {
+    pulseaudio.enable = false;
+    bluetooth.enable = true;
+    opengl = {
+      enable = true;
+      driSupport = true;
+      driSupport32Bit = true;
+    };
+  };
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
@@ -95,28 +105,20 @@
     # no need to redefine it in your config for now)
     #media-session.enable = true;
   };
+  ## Enable touchpad support
+  services.xserver.libinput.enable = true;
 
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
-
-  # Enable a way to reference flake attributes in nixpkgs
+  # Flakes
+  ## Enable a way to reference flake attributes in nixpkgs
   nix.registry = lib.mapAttrs (_: value: { flake = value; }) inputs;
 
-  # Enable the OpenGL drivers 
-  hardware.opengl = {
-    enable = true;
-    driSupport = true;
-    driSupport32Bit = true;
-  };
-
-  # Enable FLAKE support 
+  ## Enable FLAKE support 
   nix.settings.experimental-features = "nix-command flakes";
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
+  # Packages 
   users.users.ryrden = {
     isNormalUser = true;
-    description = "ryans";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "video" "audio" "lp" "scanner" ];
     packages = with pkgs; [
       # Applications
       firefox
@@ -160,14 +162,12 @@
       mongodb
     ];
   };
+  # Allow unfree packages
+  nixpkgs.config.allowUnfree = true;
+  nixpkgs.overlays =
+    [ outputs.overlays.additions outputs.overlays.modifications ];
 
   virtualisation.docker.enable = true;
-
-  nixpkgs = {
-    # Allow unfree packages
-    config.allowUnfree = true;
-    overlays = [ outputs.overlays.additions outputs.overlays.modifications ];
-  };
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -189,7 +189,6 @@
       desktopName = "Neetcode";
     })
   ];
-
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
