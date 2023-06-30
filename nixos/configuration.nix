@@ -122,24 +122,44 @@
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    nodePackages.typescript
-    nodePackages."@vue/cli"
-    python3
-    go
-    jdk
-    jre
-    (pkgs.writeShellApplication {
-      name = "neetcode";
-      text =
-        "${pkgs.chromium}/bin/chromium --app=https://neetcode.io/ --start-fullscreen --external-link";
-    })
-    (pkgs.makeDesktopItem {
-      name = "Neetcode";
-      exec = "neetcode";
-      desktopName = "Neetcode";
-    })
-  ];
+  environment = {
+    systemPackages = with pkgs; [
+      nodePackages.typescript
+      nodePackages."@vue/cli"
+      python3
+      go
+      jdk
+      jre
+      gnome.gnome-tweaks
+      (pkgs.writeShellApplication {
+        name = "neetcode";
+        text =
+          "${pkgs.chromium}/bin/chromium --app=https://neetcode.io/ --start-fullscreen --external-link";
+      })
+      (pkgs.makeDesktopItem {
+        name = "Neetcode";
+        exec = "neetcode";
+        desktopName = "Neetcode";
+      })
+    ];
+    gnome.excludePackages = (with pkgs; [ gnome-photos gnome-tour ])
+      ++ (with pkgs.gnome; [
+        cheese # webcam tool
+        gnome-music
+        gedit # text editor
+        epiphany # web browser
+        geary # email reader
+        gnome-characters
+        tali # poker game
+        iagno # go game
+        hitori # sudoku game
+        atomix # puzzle game
+        yelp # Help view
+        gnome-contacts
+        gnome-initial-setup
+      ]);
+  };
+  programs.dconf.enable = true;
 
   # Updating and Upgrading
   system.autoUpgrade = {
