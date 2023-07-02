@@ -59,6 +59,10 @@
       picture-uri-dark =
         "file:///home/ryrden/coding/nix-config/assets/lock-screen.png";
     };
+
+    "org/gnome/desktop/wm/preferences" = {
+      button-layout = "appmenu:minimize,close";
+    };
   };
 
   gtk = {
