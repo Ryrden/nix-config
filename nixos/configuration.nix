@@ -130,17 +130,6 @@
       go
       jdk
       jre
-      gnome.gnome-tweaks
-      (pkgs.writeShellApplication {
-        name = "neetcode";
-        text =
-          "${pkgs.chromium}/bin/chromium --app=https://neetcode.io/ --start-fullscreen --external-link";
-      })
-      (pkgs.makeDesktopItem {
-        name = "Neetcode";
-        exec = "neetcode";
-        desktopName = "Neetcode";
-      })
     ];
     gnome.excludePackages = (with pkgs; [ gnome-photos gnome-tour ])
       ++ (with pkgs.gnome; [

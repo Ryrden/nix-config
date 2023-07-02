@@ -24,8 +24,6 @@
       # This flake's outputs
       inherit (self) outputs;
     in {
-      formatter =
-        forAllSystems (sys: nixpkgs.legacyPackages.${sys}.nixpkgs-fmt);
 
       # Available through nix shell .#package-name
       # (or nix build, nix run, etc)
