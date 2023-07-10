@@ -30,6 +30,10 @@
       packages = forAllSystems (system:
         import ./packages { pkgs = nixpkgs.legacyPackages.${system}; });
 
+      devShells = forAllSystems (system: {
+        default = nixpkgs.legacyPackages.${system}.callPackage ./shell.nix { };
+      });
+
       homeManagerModules = import ./module/home-manager;
 
       # NixOS configuration entrypoint

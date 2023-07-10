@@ -141,7 +141,6 @@
 
     #Tools
     #dbeaver
-    mongodb
   ];
 
   programs.firefox = {
