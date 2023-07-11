@@ -19,34 +19,8 @@
         "discord.desktop"
       ];
       disable-user-extensions = false;
-
-      enabled-extensions = [
-        "user-theme@gnome-shell-extensions.gcampax.github.com"
-        "space-bar@luchrioh"
-        "dash-to-panel@jderose9.github.com"
-        "pomodoro@arun.codito.in"
-        "clipboard-indicator@tudmotu.com"
-        "Vitals@CoreCoding.com"
-      ];
-
     };
 
-    "org/gnome/shell/extensions/space-bar" = { enable = true; };
-    "org/gnome/shell/extensions/Vitals" = {
-      enable = true;
-      memory = true;
-      temperature = true;
-      network = true;
-      gpu = true;
-      sensorsInterval = 1;
-    };
-    "org/gnome/shell/extensions/cliboard-indicator" = { enable = true; };
-    "org/gnome/shell/extensions/dash-to-panel" = { enable = true; };
-    "org/gnome/shell/extensions/pomodoro" = { enable = true; };
-    "org/gnome/desktop/interface" = {
-      color-scheme = "prefer-dark";
-      enable-hot-corners = false;
-    };
     "org/gnome/desktop/background" = {
       picture-uri =
         "file:///home/ryrden/coding/nix-config/assets/wallpaper.png";
@@ -145,7 +119,6 @@
 
   programs.firefox = {
     enable = true;
-    enableGnomeExtensions = true;
     package = pkgs.wrapFirefox pkgs.firefox-unwrapped {
       extraPolicies = { ExtensionSettings = { }; };
     };

@@ -12,7 +12,7 @@
     systemd-boot.enable = true;
     efi = {
       canTouchEfiVariables = true;
-      efiSysMountPoint = "/boot/efi";
+      efiSysMountPoint = "/boot";
     };
     timeout = 10; # Wait 10 seconds before booting the default entry.
   };
@@ -131,24 +131,7 @@
       jdk
       jre
     ];
-    gnome.excludePackages = (with pkgs; [ gnome-photos gnome-tour ])
-      ++ (with pkgs.gnome; [
-        cheese # webcam tool
-        gnome-music
-        gedit # text editor
-        epiphany # web browser
-        geary # email reader
-        gnome-characters
-        tali # poker game
-        iagno # go game
-        hitori # sudoku game
-        atomix # puzzle game
-        yelp # Help view
-        gnome-contacts
-        gnome-initial-setup
-      ]);
   };
-  programs.dconf.enable = true;
 
   # Updating and Upgrading
   system.autoUpgrade = {

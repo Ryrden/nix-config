@@ -56,14 +56,6 @@
           }; # Pass flake inputs to our config
           modules = [ ./home/ryrden.nix ];
         };
-        "simple-network@nixos-ryans" =
-          home-manager.lib.homeManagerConfiguration {
-            pkgs = nixpkgs.legacyPackages.x86_64-linux;
-            extraSpecialArgs = {
-              inherit inputs outputs;
-            }; # Pass flake inputs to our config
-            modules = [ ./home/simple-network.nix ];
-          };
       };
 
       # Our custom packages, but exported as an overlay
