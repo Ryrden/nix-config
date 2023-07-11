@@ -4,8 +4,11 @@ let
     url = "https://github.com/nixos/nixpkgs/archive/${commit}.tar.gz";
     sha256 = "12q00nbd7fb812zchbcnmdg3pw45qhxm74hgpjmshc2dfmgkjh4n";
   };
-  pkgs = import nixpkgs { system = "x86_64-linux"; };
+  pkgs = import nixpkgs {
+    system = "x86_64-linux";
+    config.allowUnfree = true;
+  };
 in pkgs.mkShell {
   NIX_CONFIG = "extra-experimental-features = nix-command flakes repl-flake";
-  buildInputs = with pkgs; [ nodejs-12_x ];
+  buildInputs = with pkgs; [ nodejs-12_x jdk11 openvpn mongodb vscode ];
 }
