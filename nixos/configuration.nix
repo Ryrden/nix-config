@@ -12,7 +12,6 @@
     systemd-boot.enable = true;
     efi = {
       canTouchEfiVariables = true;
-      efiSysMountPoint = "/boot";
     };
     timeout = 10; # Wait 10 seconds before booting the default entry.
   };
@@ -21,8 +20,8 @@
   networking = {
     hostName = "nixos-ryans";
     networkmanager.enable = true;
-    nameservers = [ "8.8.8.8" "8.8.4.4" ]; # Google DNS
-    # wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+    #nameservers = [ "8.8.8.8" "8.8.4.4" ]; # Google DNS
+    wireless.enable = true;  # Enables wireless support via wpa_supplicant.
     # Configure network proxy if necessary
     # proxy.default = "http://user:password@proxy:port/";
     # proxy.noProxy = "127.0.0.1,localhost,internal.domain";
@@ -58,7 +57,6 @@
     ## Enable the GNOME Desktop Environment.
     displayManager.gdm = {
       enable = true;
-      wayland = true;
     };
     desktopManager.gnome = {
       enable = true;
@@ -68,10 +66,9 @@
         click-method='default'
       '';
     };
-    videoDrivers = [ "amdgpu" ];
     ## Configure keymap in X11
     layout = "br";
-    xkbVariant = "abnt2";
+    xkbVariant = "";
   };
 
   # Hardware

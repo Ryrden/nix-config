@@ -18,27 +18,8 @@
         "notion.desktop"
         "discord.desktop"
       ];
-      disable-user-extensions = false;
-    };
-
-    "org/gnome/desktop/background" = {
-      picture-uri =
-        "file:///home/ryrden/coding/nix-config/assets/wallpaper.png";
-      picture-uri-dark =
-        "file:///home/ryrden/coding/nix-config/assets/wallpaper.png";
-    };
-    "org/gnome/desktop/screensaver" = {
-      picture-uri =
-        "file:///home/ryrden/coding/nix-config/assets/lock-screen.png";
-      picture-uri-dark =
-        "file:///home/ryrden/coding/nix-config/assets/lock-screen.png";
-    };
-
-    "org/gnome/desktop/wm/preferences" = {
-      button-layout = "appmenu:minimize,close";
     };
   };
-
   gtk = {
     enable = true;
     iconTheme = {
@@ -72,13 +53,6 @@
   # Add stuff for your user as you see fit:
   # programs.neovim.enable = true;
   home.packages = with pkgs; [
-    gnomeExtensions.user-themes
-    gnomeExtensions.space-bar
-    gnomeExtensions.dash-to-panel
-    gnomeExtensions.clipboard-indicator
-    gnomeExtensions.vitals
-    gnome.pomodoro
-
     # Applications
     spotify
     steam
@@ -111,19 +85,14 @@
     vscode
     jetbrains.datagrip
     jetbrains.idea-community
-    #android-studio
+    android-studio
 
     #Tools
     #dbeaver
+    firefox
+    google-chrome
   ];
-
-  programs.firefox = {
-    enable = true;
-    package = pkgs.wrapFirefox pkgs.firefox-unwrapped {
-      extraPolicies = { ExtensionSettings = { }; };
-    };
-  };
-
+  
   programs.git = {
     userName = "Ryan S.";
     userEmail = "ryansouza@usp.br";
